@@ -32,12 +32,12 @@ MonoBehaviour:
   useCustomNormalDirection: 0
   customNormalDirection: {x: 0, y: 1, z: 0}
   startOrientation: {x: 7, y: 0, z: 0}
-  randomizer: {fileID: 11400000, guid: 1f9e69b48c7128548a3c18e245ac18f7, type: 2}
+  randomizer: {fileID: 11400000, guid: fb600be43607d7e47822c78754644d57, type: 2}
   restrictPitch: 1
   restrictYaw: 1
   restrictRoll: 0
-  usePitch: 1
-  useYaw: 1
+  usePitch: 0
+  useYaw: 0
   useRoll: 0
   useColors: 0
   useSizes: 0

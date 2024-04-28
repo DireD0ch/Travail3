@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     LaneRunner runner;
     Rigidbody rb;
     public bool peutsauter = false;
+    int augmenterVitesse = 0;
 
     //Variable pour les animations de des cameras
     public Camera cam;
@@ -64,20 +65,39 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        // Pour les déplacement entre les "lane" et sauter
         if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) runner.lane--;
         if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) runner.lane++;
 
-        if (Input.GetKey(KeyCode.Space) && peutsauter == true)
+        if ((Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.UpArrow)) && peutsauter == true) // On donne le choix au joueur de sauter avec la flèche du haut ou la barre espace
         {
             rb.AddForce(Vector3.up * ForceSaut, ForceMode.Impulse);
+        }
+
+        // Difficulter accrue le plus de piece rammaser
+        if (score > 0 && score % 5 == 0) // Augmenter la vitesse tous les multiples de 5
+        {
+            // Incrémenter le compteur d'augmentation de vitesse
+            augmenterVitesse++;
+
+            // Augmenter la vitesse uniquement lorsque le compteur atteint un certain seuil
+            if (augmenterVitesse >= 3) // Augmenter la vitesse tous les 3 scores de 5
+            {
+                runner.followSpeed += 0.01f;
+                // Réinitialiser le compteur d'augmentation de vitesse
+                augmenterVitesse = 0;
+            }
         }
 
         if (nbVie == 0) 
         {
             runner.follow = false;
             StartCoroutine(MoveCamera());
-
         }
+
+
+
     }
     IEnumerator MoveCamera()
     {
