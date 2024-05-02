@@ -14,7 +14,6 @@ public class PlayerMovement : MonoBehaviour
     // Pour mettre en référence d'autre script
     public PatateMovementScript pms;
     
-
     //Variables pour la gestions des vies
     public int nbVie = 3;
 
@@ -119,9 +118,6 @@ public class PlayerMovement : MonoBehaviour
 
              // On active une musique de mort quand le personnage meurt
         }
-
-
-
     }
     IEnumerator MoveCamera()
     {
