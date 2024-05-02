@@ -11,6 +11,10 @@ using static Dreamteck.WelcomeWindow.WindowPanel;
 
 public class PlayerMovement : MonoBehaviour
 {
+    // Pour mettre en référence d'autre script
+    public PatateMovementScript pms;
+    
+
     //Variables pour la gestions des vies
     public int nbVie = 3;
 
@@ -24,16 +28,25 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rb;
     public bool peutsauter = false;
     int augmenterVitesse = 0;
+    public float distanceCurrentPersonnage; // Pour que la patate puisse suivre notre personnage
 
     //Variable pour les animations de des cameras
     public Camera cam;
+
+    //Variables pour activer des sons du personnage
+    public AudioSource SonDegat;
+    public AudioClip AudioSonDegat;
+
+    
     
 
     private void OnCollisionEnter(Collision collision)
     {
+        
         if (collision.gameObject.CompareTag("Obstacle"))
         {
             nbVie--; // Enlève une vie 
+            SonDegat.PlayOneShot(AudioSonDegat); // Active l'audio du personnage qui a mal
         }
 
         if (collision.gameObject.CompareTag("Piece"))
@@ -60,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
     {
         runner = GetComponent<LaneRunner>();
         rb = GetComponent<Rigidbody>();
+
     }
 
     private void OnDrawGizmos()
@@ -70,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         // Pour les déplacement entre les "lane" et sauter
         if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) runner.lane--;
         if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) runner.lane++;
@@ -78,6 +93,9 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(Vector3.up * ForceSaut, ForceMode.Impulse);
         }
+
+        pms.distanceCurrentPatate = distanceCurrentPersonnage;
+        pms.Follow(transform.position, runner.followSpeed); // Pour que la patate suive notre personnage
 
         // Difficulter accrue le plus de piece rammaser
         if (score > 0 && score % 5 == 0) // Augmenter la vitesse tous les multiples de 5
@@ -94,10 +112,12 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (nbVie == 0) 
+        if (nbVie == 0) // Le personnage meurt
         {
-            runner.follow = false;
-            StartCoroutine(MoveCamera());
+            runner.follow = false; // Propriété du runner, en gros sa fait que le personnag arrete de courrir
+            StartCoroutine(MoveCamera()); 
+
+             // On active une musique de mort quand le personnage meurt
         }
 
 
