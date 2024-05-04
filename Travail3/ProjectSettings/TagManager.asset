@@ -7,6 +7,8 @@ TagManager:
   - Obstacle
   - Piece
   - Plancher
+  - Personnage
+  - Transition
   layers:
   - Default
   - TransparentFX
