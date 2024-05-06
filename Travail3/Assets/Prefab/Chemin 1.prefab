@@ -380,11 +380,11 @@ MonoBehaviour:
     colliders: []
     _isRoot: 0
   bounds:
-    center: {x: 0, y: 0.32764357, z: 0}
-    extents: {x: 5, y: 0.3347659, z: 5}
+    center: {x: 0, y: 0.3187047, z: 0}
+    extents: {x: 5, y: 0.3437048, z: 5}
     max: {x: 5, y: 0.6624095, z: 5}
-    min: {x: -5, y: -0.00712234, z: -5}
-    size: {x: 10, y: 0.6695318, z: 10}
+    min: {x: -5, y: -0.025000095, z: -5}
+    size: {x: 10, y: 0.6874096, z: 10}
   builders: []
   unpacked: 0
   alwaysDraw: 0
